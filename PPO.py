@@ -1,7 +1,7 @@
 import tensorflow as tf
 import numpy as np
 import matplotlib.pyplot as plt
-import gym
+
 
 
 ACTOR_UPDATE_STEPS = 10
@@ -120,9 +120,9 @@ class PPO(object):
 
             mu = self.acts_bound * tf.layers.dense(out,self.acts_dim ,tf.nn.tanh,trainable = train_able)
 
-            sigmu = tf.layers.dense(out,self.acts_dim ,tf.nn.softplus,trainable = train_able)
+            sigma = tf.layers.dense(out,self.acts_dim ,tf.nn.softplus,trainable = train_able)
 
-            norm_dist = tf.distributions.Normal(loc = mu,scale =sigmu)
+            norm_dist = tf.distributions.Normal(loc = mu,scale =sigma)
 
         params = tf.get_collection(tf.GraphKeys.GLOBAL_VARIABLES,scope = name)
 
